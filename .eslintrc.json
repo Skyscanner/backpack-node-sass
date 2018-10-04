@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "skyscanner-with-prettier"
+  ]
+}

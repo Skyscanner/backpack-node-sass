@@ -1,0 +1,55 @@
+{
+  "name": "backpack-node-sass",
+  "version": "0.0.1",
+  "description": "Parallelised `node-sass` with Backpack support",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skyscanner/backpack-node-sass.git"
+  },
+  "keywords": [
+    "backpack",
+    "node-sass",
+    "parallel",
+    "concurrency",
+    "sass",
+    "fast",
+    "parallelised"
+  ],
+  "author": "Matthew Davidson <matthew.davidson@skyscanner.net>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Skyscanner/backpack-node-sass/issues"
+  },
+  "homepage": "https://github.com/Skyscanner/backpack-node-sass#readme",
+  "main": "index.js",
+  "bin": {
+    "backpack-node-sass": "./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": "^8.9.0",
+    "npm": "^6.4.1"
+  },
+  "scripts": {
+    "pretest": "npx ensure-node-env",
+    "test:lint": "npm run lint",
+    "test:verify": "test/verify",
+    "test": "npm run lint && node index.js && npm run test:verify",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
+  },
+  "dependencies": {
+    "bpk-mixins": "^17.11.17",
+    "fast-glob": "^2.2.3",
+    "lodash": "^4.17.11",
+    "node-sass": "^4.9.3",
+    "node-sass-tilde-importer": "^1.0.2",
+    "ora": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-skyscanner-with-prettier": "^0.4.0"
+  }
+}
