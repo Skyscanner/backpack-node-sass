@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+_Nothing yet..._
+
+## 0.1.1 - 2018-10-04
+
 ### Fixed
 - Fix cli.
 
