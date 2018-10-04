@@ -1,0 +1,12 @@
+language: node_js
+
+cache:
+  directories:
+    - "node_modules"
+
+script:
+  - npm test
+
+branches:
+  only:
+    - master
