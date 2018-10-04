@@ -23,10 +23,11 @@
   "homepage": "https://github.com/Skyscanner/backpack-node-sass#readme",
   "main": "index.js",
   "bin": {
-    "backpack-node-sass": "./index.js"
+    "backpack-node-sass": "./cli.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "cli.js"
   ],
   "engines": {
     "node": "^8.9.0",
