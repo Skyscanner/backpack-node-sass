@@ -36,8 +36,10 @@
   "scripts": {
     "pretest": "npx ensure-node-env",
     "test:lint": "npm run lint",
-    "test:verify": "test/verify",
-    "test": "npm run lint && node index.js && npm run test:verify",
+    "test:verify:fail": "(cd ./test/fail && ./verify.sh)",
+    "test:verify:pass": "(cd ./test/pass && ./verify.sh)",
+    "test:verify": "npm run test:verify:pass && npm run test:verify:fail",
+    "test": "npm run lint && npm run test:verify",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""

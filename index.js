@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable no-console */
+
 const os = require('os');
 const fs = require('fs');
 const ora = require('ora');
@@ -26,12 +28,8 @@ const fastGlob = require('fast-glob');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions');
 
-const master = () => {
-  const numCPUs = os.cpus().length;
-
-  const spinner = ora('Looking for Sass files...').start();
-
-  const files = fastGlob.sync(
+const getSassFiles = () =>
+  fastGlob.sync(
     [
       '**/*.scss',
       '!**/_*.scss',
@@ -46,44 +44,74 @@ const master = () => {
     },
   );
 
+const getWorkers = (files, workerCount) =>
+  chunk(files, Math.ceil(files.length / workerCount)).map(filesChunk => {
+    const worker = cluster.fork();
+
+    worker.send(filesChunk);
+
+    return worker;
+  });
+
+const getStatusMessage = (files, successes) =>
+  `${successes.length}/${files.length} compiled`;
+
+const master = () => {
+  const spinner = ora('Looking for Sass files...').start();
+  const files = getSassFiles();
+
   spinner.succeed(`${files.length} files found`);
   spinner.start(`Spawning workers...`);
 
-  const workers = chunk(files, Math.ceil(files.length / numCPUs)).map(
-    filesChunk => {
-      const worker = cluster.fork();
-
-      worker.send(filesChunk);
-
-      return worker;
-    },
-  );
+  const cpuCount = os.cpus().length;
+  const workers = getWorkers(files, cpuCount);
 
   spinner.succeed(`${workers.length} workers spawned`);
 
-  let count = 0;
-  spinner.start(`${count}/${files.length} compiled`);
+  const successes = [];
+  const failures = [];
+
+  spinner.start(getStatusMessage(files, successes));
 
   workers.forEach(worker =>
-    worker.on('message', () => {
-      count += 1;
-    }),
+    worker.on(
+      'message',
+      ({ error, data }) =>
+        error ? failures.push(error) : successes.push(data),
+    ),
   );
 
   const interval = setInterval(() => {
-    spinner.text = `${count}/${files.length} compiled`;
-    if (count === files.length) {
-      spinner.succeed(`${count}/${files.length} compiled`);
+    spinner.text = getStatusMessage(files, successes);
+
+    if (successes.length + failures.length === files.length) {
       clearInterval(interval);
+
+      if (failures.length) {
+        spinner.fail(getStatusMessage(files, successes));
+        console.log();
+        console.log(`${failures.length} files failed to compile:`);
+        console.log();
+
+        failures.forEach(failure => {
+          console.log(failure);
+          console.log();
+        });
+
+        process.exit(1);
+      } else {
+        spinner.succeed(getStatusMessage(files, successes));
+        process.exit(0);
+      }
     }
   }, 100);
 };
 
-const worker = () => {
-  const compileSass = files => {
+const worker = () =>
+  process.on('message', files => {
     const promises = files.map(
       file =>
-        new Promise((resolve, reject) => {
+        new Promise((resolve, reject) =>
           sass.render(
             {
               file,
@@ -92,27 +120,32 @@ const worker = () => {
               outputStyle: 'compressed',
             },
             (error, result) => {
-              if (error) reject(error);
+              if (error) {
+                process.send({ error });
+                return reject(error);
+              }
 
               const newFile = file.replace('.scss', '.css');
 
-              fs.writeFile(newFile, result.css, err => {
-                if (err) reject(err);
+              return fs.writeFile(newFile, result.css, err => {
+                if (err) {
+                  process.send({ error });
+                  return reject(err);
+                }
 
-                process.send(newFile);
+                process.send({ data: newFile });
 
-                resolve();
+                return resolve();
               });
             },
-          );
-        }),
+          ),
+        ),
     );
 
-    Promise.all(promises).then(() => cluster.worker.kill(0));
-  };
-
-  process.on('message', compileSass);
-};
+    Promise.all(promises)
+      .then(() => cluster.worker.kill(0))
+      .catch(() => cluster.worker.kill(1));
+  });
 
 if (cluster.isMaster) {
   master();
