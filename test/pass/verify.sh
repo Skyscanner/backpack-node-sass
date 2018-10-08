@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # backpack-node-sass
 #
@@ -19,6 +19,8 @@
 set -e
 set -x
 
-test -e test/test.css
-test ! -e test/_test.css
-test ! -e test/node_modules/test.css
+node ../../index.js
+
+test -e test.css
+test ! -e _test.css
+test ! -e node_modules/test.css
