@@ -29,4 +29,4 @@ fi
 
 set -e
 
-test ! -e /test.css
+test ! -e test.css
