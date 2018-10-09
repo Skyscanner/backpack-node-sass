@@ -6,18 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-_Nothing yet..._
+### Fixed
+- Improve exit logic. This prevents the process from hanging when workers exit early.
 
 ## 0.1.2 - 2018-10-08
-### Added
- - Add error catching and handling
+### Fixed
+- Improve error handling.
 
 ## 0.1.1 - 2018-10-04
-
 ### Fixed
 - Fix cli.
 
 ## 0.1.0 - 2018-10-04
-
 ### Added
 - Introduce backpack-node-sass.

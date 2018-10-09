@@ -73,19 +73,21 @@ const master = () => {
 
   spinner.start(getStatusMessage(files, successes));
 
-  workers.forEach(worker =>
-    worker.on(
-      'message',
-      ({ error, data }) =>
-        error ? failures.push(error) : successes.push(data),
-    ),
-  );
+  workers.forEach(worker => {
+    worker.on('message', ({ error, data }) => {
+      if (error) {
+        failures.push(error);
+      } else {
+        successes.push(data);
+      }
 
-  const interval = setInterval(() => {
-    spinner.text = getStatusMessage(files, successes);
+      spinner.text = getStatusMessage(files, successes);
+    });
 
-    if (successes.length + failures.length === files.length) {
-      clearInterval(interval);
+    worker.on('exit', () => {
+      if (workers.filter(x => x.isDead()).length !== workers.length) {
+        return;
+      }
 
       if (failures.length) {
         spinner.fail(getStatusMessage(files, successes));
@@ -103,8 +105,8 @@ const master = () => {
         spinner.succeed(getStatusMessage(files, successes));
         process.exit(0);
       }
-    }
-  }, 100);
+    });
+  });
 };
 
 const worker = () =>
@@ -139,12 +141,19 @@ const worker = () =>
               });
             },
           ),
-        ),
+        ).catch(error => ({ error })),
+      // The catch clause above prevents the Promise.all fail fast behaviour.
+      // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all#Promise.all_fail-fast_behaviour.
     );
 
     Promise.all(promises)
-      .then(() => cluster.worker.kill(0))
-      .catch(() => cluster.worker.kill(1));
+      .then(values =>
+        cluster.worker.kill(values.some(({ error }) => error) ? 1 : 0),
+      )
+      .catch(() => {
+        // Technically this shouldn't happen, but we'll exit accordingly if it does.
+        cluster.worker.kill(1);
+      });
   });
 
 if (cluster.isMaster) {
