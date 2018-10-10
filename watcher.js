@@ -20,6 +20,7 @@
 
 const fs = require('fs');
 const ora = require('ora');
+const util = require('util');
 const sass = require('node-sass');
 const chokidar = require('chokidar');
 const importer = require('node-sass-tilde-importer');
@@ -27,48 +28,16 @@ const functions = require('bpk-mixins/sass-functions.js');
 
 const getCssFileName = name => name.replace(/\.scss/, '.css');
 
+const renderSass = util.promisify(sass.render);
+const writeFile = util.promisify(fs.writeFile);
+const unlinkFile = util.promisify(fs.unlink);
+
 const compileSass = file =>
-  new Promise((resolve, reject) => {
-    sass.render(
-      {
-        file,
-        importer,
-        functions,
-        outputStyle: 'compressed',
-      },
-      (err, result) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(result);
-      },
-    );
-  });
-
-const writeFile = (file, data) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(file, data, err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      resolve();
-    });
-  });
-
-const unlinkFile = file =>
-  new Promise((resolve, reject) => {
-    fs.unlink(file, (err, result) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      resolve(result);
-    });
+  renderSass({
+    file,
+    importer,
+    functions,
+    outputStyle: 'compressed',
   });
 
 const spinner = ora('Starting watcher...').start();
