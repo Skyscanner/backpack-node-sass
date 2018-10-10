@@ -91,13 +91,13 @@ const master = () => {
 
       if (failures.length) {
         spinner.fail(getStatusMessage(files, successes));
-        console.log();
-        console.log(`${failures.length} files failed to compile:`);
-        console.log();
+        console.error();
+        console.error(`${failures.length} files failed to compile:`);
+        console.error();
 
         failures.forEach(failure => {
-          console.log(failure);
-          console.log();
+          console.error(failure);
+          console.error();
         });
 
         process.exit(1);
@@ -131,7 +131,7 @@ const worker = () =>
 
               return fs.writeFile(newFile, result.css, err => {
                 if (err) {
-                  process.send({ error });
+                  process.send({ error: err });
                   return reject(err);
                 }
 
