@@ -32,13 +32,25 @@ const renderSass = util.promisify(sass.render);
 const writeFile = util.promisify(fs.writeFile);
 const unlinkFile = util.promisify(fs.unlink);
 
-const compileSass = file =>
-  renderSass({
-    file,
-    importer,
-    functions,
-    outputStyle: 'compressed',
-  });
+const compileSass = async (file, spinner) => {
+  const cssFileName = getCssFileName(file);
+
+  try {
+    const result = await renderSass({
+      file,
+      importer,
+      functions,
+      outputStyle: 'compressed',
+    });
+    await writeFile(cssFileName, result.css);
+    spinner.succeed(`Compiled: ${cssFileName}`);
+  } catch (e) {
+    spinner.fail(`Failed: ${cssFileName}`);
+    console.error();
+    console.error(e);
+    console.error();
+  }
+};
 
 const spinner = ora('Starting watcher...').start();
 
@@ -58,33 +70,11 @@ chokidar
   .on('ready', () => spinner.succeed('Ready for changes'))
   .on('add', async file => {
     spinner.start(`Added: ${file}`);
-    const cssFileName = getCssFileName(file);
-
-    try {
-      const result = await compileSass(file);
-      await writeFile(cssFileName, result.css);
-      spinner.succeed(`Compiled: ${cssFileName}`);
-    } catch (e) {
-      spinner.fail(`Failed: ${cssFileName}`);
-      console.error();
-      console.error(e);
-      console.error();
-    }
+    await compileSass(file, spinner);
   })
   .on('change', async file => {
     spinner.start(`Changed: ${file}`);
-    const cssFileName = getCssFileName(file);
-
-    try {
-      const result = await compileSass(file);
-      await writeFile(cssFileName, result.css);
-      spinner.succeed(`Compiled: ${cssFileName}`);
-    } catch (e) {
-      spinner.fail(`Failed: ${cssFileName}`);
-      console.error();
-      console.error(e);
-      console.error();
-    }
+    await compileSass(file, spinner);
   })
   .on('unlink', async file => {
     spinner.start(`Removed: ${file}`);
