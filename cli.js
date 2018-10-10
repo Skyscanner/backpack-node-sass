@@ -18,4 +18,12 @@
  * limitations under the License.
  */
 
-require('./index');
+/* eslint-disable global-require */
+
+const { argv } = require('yargs');
+
+if (argv.watch) {
+  require('./watcher');
+} else {
+  require('./index');
+}

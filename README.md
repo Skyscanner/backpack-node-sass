@@ -14,8 +14,16 @@ npm install --save-dev backpack-node-sass
 
 ```
 > backpack-node-sass
-
 ✔ 159 files found
 ✔ 8 workers spawned
 ✔ 159/159 compiled
+```
+
+Watch mode:
+
+```
+> backpack-node-sass --watch
+✔ Ready for changes
+✔ Compiled: packages/bpk-component-button/src/bpk-button.css
+✔ Compiled: packages/bpk-component-text/src/BpkText.css
 ```
