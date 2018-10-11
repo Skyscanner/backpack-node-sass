@@ -27,7 +27,8 @@
   },
   "files": [
     "index.js",
-    "cli.js"
+    "cli.js",
+    "watcher.js"
   ],
   "engines": {
     "node": "^8.9.0",
