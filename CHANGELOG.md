@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _Nothing yet..._
 
+## 0.2.0 - 2018-10-11
+### Added
+- `--watch` functionality.
+
 ## 0.1.3 - 2018-10-09
 ### Fixed
 - Improve exit logic. This prevents the process from hanging when workers exit early.
