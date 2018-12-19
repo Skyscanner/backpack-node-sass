@@ -1,6 +1,6 @@
 {
   "name": "backpack-node-sass",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Parallelised `node-sass` with Backpack support",
   "repository": {
     "type": "git",
