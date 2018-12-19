@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+_Nothing yet..._
+
+## 0.3.0 - 2018-12-19
 ### Fixed
 - Upgrade node-sass, bpk-mixins, yargs & fast-glob.
 
