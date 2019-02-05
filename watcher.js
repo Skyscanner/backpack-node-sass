@@ -19,8 +19,9 @@
 /* eslint-disable no-console */
 
 const fs = require('fs');
-const ora = require('ora');
 const util = require('util');
+
+const ora = require('ora');
 const sass = require('node-sass');
 const chokidar = require('chokidar');
 const importer = require('node-sass-tilde-importer');

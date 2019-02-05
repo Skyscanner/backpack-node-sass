@@ -20,9 +20,10 @@
 
 const os = require('os');
 const fs = require('fs');
+const cluster = require('cluster');
+
 const ora = require('ora');
 const sass = require('node-sass');
-const cluster = require('cluster');
 const chunk = require('lodash/chunk');
 const fastGlob = require('fast-glob');
 const importer = require('node-sass-tilde-importer');
