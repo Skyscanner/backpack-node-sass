@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-_Nothing yet..._
+## 0.3.2 - 2019-02-14
+### Fixed
+- Upgrade bpk-mixins, yargs, chokidar and ora.
 
 ## 0.3.1 - 2019-02-05
 ### Fixed
