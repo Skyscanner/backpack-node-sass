@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "bpk-mixins": "^17.14.2",
-    "chokidar": "^2.1.1",
+    "chokidar": "^3.0.0",
     "fast-glob": "^2.2.6",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
