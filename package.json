@@ -48,7 +48,7 @@
   "dependencies": {
     "bpk-mixins": "^17.14.2",
     "chokidar": "^3.0.0",
-    "fast-glob": "^2.2.6",
+    "fast-glob": "^3.0.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "node-sass-tilde-importer": "^1.0.2",
