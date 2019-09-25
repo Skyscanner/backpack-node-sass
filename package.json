@@ -52,7 +52,7 @@
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "node-sass-tilde-importer": "^1.0.2",
-    "ora": "^3.1.0",
+    "ora": "^4.0.0",
     "yargs": "^14.0.0"
   },
   "devDependencies": {
