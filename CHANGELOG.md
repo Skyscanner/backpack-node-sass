@@ -6,10 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Breaking
-- Upgraded node to `lts/erbium` by default
-
+## 0.4.0 - 2019-11-29
 ### Fixed
+- Upgraded node to `lts/erbium` by default
 - Upgrade `fast-glob` to `3.0.0`.
 - Upgrade `bpk-mixins` to `19.0.18`
 - Upgrade `node-sass` to `4.12.0`
