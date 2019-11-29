@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 - Upgrade `fast-glob` to `3.0.0`.
+- Upgrade `bpk-mixins` to `19.0.18`
+- Upgrade `node-sass` to `4.12.0`
 
 ## 0.3.2 - 2019-02-14
 ### Fixed
