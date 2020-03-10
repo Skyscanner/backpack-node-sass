@@ -46,7 +46,7 @@
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
   },
   "dependencies": {
-    "bpk-mixins": "^19.0.18",
+    "bpk-mixins": "^19.1.4",
     "chokidar": "^3.0.0",
     "fast-glob": "^3.0.0",
     "lodash": "^4.17.11",
