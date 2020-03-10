@@ -1,6 +1,6 @@
 # backpack-node-sass
 
-[![Build Status](https://travis-ci.org/Skyscanner/backpack-node-sass.svg?branch=master)](https://travis-ci.org/Skyscanner/backpack-node-sass) [![Greenkeeper badge](https://badges.greenkeeper.io/Skyscanner/backpack-node-sass.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/Skyscanner/backpack-node-sass.svg?branch=master)](https://travis-ci.org/Skyscanner/backpack-node-sass) 
 
 Parallelised `node-sass` with Backpack support.
 
