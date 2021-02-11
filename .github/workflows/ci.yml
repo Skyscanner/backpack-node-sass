@@ -16,13 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: nvm install
-        run: nvm install
-
-      - name: Install
-        run: npm ci
-
-      - name: Test
+      # We need to merge this to one step to ensure node-sass has correct bindings in order to run tests
+      # otherwise will result in node-sass not getting correct setup for running
+      - name: Install & Test
         run: |
-          nvm use 
+          nvm install
+          npm ci
+          nvm use
           npm test
