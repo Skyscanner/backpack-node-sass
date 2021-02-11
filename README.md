@@ -1,6 +1,8 @@
 # backpack-node-sass
 
-[![Build Status](https://travis-ci.org/Skyscanner/backpack-node-sass.svg?branch=master)](https://travis-ci.org/Skyscanner/backpack-node-sass) 
+[![Build Status](https://github.com/Skyscanner/backpack-node-sass/workflows/CI/badge.svg?branch=main)](https://github.com/Skyscanner/backpack-node-sass/actions?query=workflow%3ACI)
+[![npm version](https://img.shields.io/npm/v/backpack-node-sass.svg)](https://www.npmjs.com/package/backpack-node-sass)
+
 
 Parallelised `node-sass` with Backpack support.
 

@@ -57,7 +57,7 @@ const getWorkers = (files, workerCount) =>
 const getStatusMessage = (files, successes) =>
   `${successes.length}/${files.length} compiled`;
 
-const master = () => {
+const createWorkers = () => {
   const spinner = ora('Looking for Sass files...').start();
   const files = getSassFiles();
 
@@ -158,7 +158,7 @@ const worker = () =>
   });
 
 if (cluster.isMaster) {
-  master();
+  createWorkers();
 } else {
   worker();
 }
