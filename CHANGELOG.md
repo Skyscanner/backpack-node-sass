@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+- Migrated to `main` branch
+- Upgrade `bpk-mixins` to `20.1.18`
+- Upgrade `chokidar` to `3.5.1`
+- Upgrade `fast-glob` to `3.2.5`
+- Upgrade `node-sass` to `5.0.0`
+- Upgrade `ora` to `5.3.0`
+- Upgrade `yargs` to `16.2.0`
+- Upgrade `eslint-config-skyscanner` to `8.1.0`
 
 ## 0.4.2 - 2020-09-11
 ### Fixed

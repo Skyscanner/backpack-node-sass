@@ -27,7 +27,7 @@ const chokidar = require('chokidar');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions.js');
 
-const getCssFileName = name => name.replace(/\.scss/, '.css');
+const getCssFileName = (name) => name.replace(/\.scss/, '.css');
 
 const renderSass = util.promisify(sass.render);
 const writeFile = util.promisify(fs.writeFile);
@@ -69,15 +69,15 @@ chokidar
     },
   )
   .on('ready', () => spinner.succeed('Ready for changes'))
-  .on('add', async file => {
+  .on('add', async (file) => {
     spinner.start(`Added: ${file}`);
     await compileSass(file, spinner);
   })
-  .on('change', async file => {
+  .on('change', async (file) => {
     spinner.start(`Changed: ${file}`);
     await compileSass(file, spinner);
   })
-  .on('unlink', async file => {
+  .on('unlink', async (file) => {
     spinner.start(`Removed: ${file}`);
     const cssFileName = getCssFileName(file);
 

@@ -1,5 +1,10 @@
 {
   "extends": [
     "skyscanner"
-  ]
+  ],
+  "settings": {
+    "jest": {
+      "version": "latest"
+    }
+  }
 }

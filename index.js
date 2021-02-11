@@ -46,7 +46,7 @@ const getSassFiles = () =>
   );
 
 const getWorkers = (files, workerCount) =>
-  chunk(files, Math.ceil(files.length / workerCount)).map(filesChunk => {
+  chunk(files, Math.ceil(files.length / workerCount)).map((filesChunk) => {
     const worker = cluster.fork();
 
     worker.send(filesChunk);
@@ -74,7 +74,7 @@ const createWorkers = () => {
 
   spinner.start(getStatusMessage(files, successes));
 
-  workers.forEach(worker => {
+  workers.forEach((worker) => {
     worker.on('message', ({ error, data }) => {
       if (error) {
         failures.push(error);
@@ -86,7 +86,7 @@ const createWorkers = () => {
     });
 
     worker.on('exit', () => {
-      if (workers.filter(x => x.isDead()).length !== workers.length) {
+      if (workers.filter((x) => x.isDead()).length !== workers.length) {
         return;
       }
 
@@ -96,7 +96,7 @@ const createWorkers = () => {
         console.error(`${failures.length} files failed to compile:`);
         console.error();
 
-        failures.forEach(failure => {
+        failures.forEach((failure) => {
           console.error(failure);
           console.error();
         });
@@ -111,9 +111,9 @@ const createWorkers = () => {
 };
 
 const worker = () =>
-  process.on('message', files => {
+  process.on('message', (files) => {
     const promises = files.map(
-      file =>
+      (file) =>
         new Promise((resolve, reject) =>
           sass.render(
             {
@@ -130,7 +130,7 @@ const worker = () =>
 
               const newFile = file.replace('.scss', '.css');
 
-              return fs.writeFile(newFile, result.css, err => {
+              return fs.writeFile(newFile, result.css, (err) => {
                 if (err) {
                   process.send({ error: err });
                   return reject(err);
@@ -142,13 +142,13 @@ const worker = () =>
               });
             },
           ),
-        ).catch(error => ({ error })),
+        ).catch((error) => ({ error })),
       // The catch clause above prevents the Promise.all fail fast behaviour.
       // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all#Promise.all_fail-fast_behaviour.
     );
 
     Promise.all(promises)
-      .then(values =>
+      .then((values) =>
         cluster.worker.kill(values.some(({ error }) => error) ? 1 : 0),
       )
       .catch(() => {
