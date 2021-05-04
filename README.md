@@ -23,6 +23,8 @@ npm install --save-dev backpack-node-sass
 
 Add a comment to output files - e.g. a license header or file comment:
 
+**Note:** Ensure your `prefixComment` is plain text and does not already include comments in the form `/* */`. 
+
 ```
 > backpack-node-sass --prefixComment="$(<./license.txt)"
 ✔ 159 files found

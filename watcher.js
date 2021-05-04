@@ -49,7 +49,9 @@ const compileSass = async (file, spinner) => {
 
     if (argv.prefixComment) {
       try {
-        const comment = argv.prefixComment;
+        const comment = `/* 
+${argv.prefixComment.replace(/^/gm, ' * ')}
+*/`;
         prefixedContents = [comment, result.css].join('\n');
       } catch (err) {
         console.error('There was an error processing the argument.');
