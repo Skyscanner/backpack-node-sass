@@ -22,12 +22,15 @@ const os = require('os');
 const fs = require('fs');
 const cluster = require('cluster');
 
+const { argv } = require('yargs');
 const ora = require('ora');
 const sass = require('node-sass');
 const chunk = require('lodash/chunk');
 const fastGlob = require('fast-glob');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions');
+
+const { license } = require('./license-header');
 
 const getSassFiles = () =>
   fastGlob.sync(
@@ -130,16 +133,22 @@ const worker = () =>
 
               const newFile = file.replace('.scss', '.css');
 
-              return fs.writeFile(newFile, result.css, (err) => {
-                if (err) {
-                  process.send({ error: err });
-                  return reject(err);
-                }
+              const fileContents = [license, result.css].join('\n');
 
-                process.send({ data: newFile });
+              return fs.writeFile(
+                newFile,
+                argv.licenseHeader ? fileContents : result.css,
+                (err) => {
+                  if (err) {
+                    process.send({ error: err });
+                    return reject(err);
+                  }
 
-                return resolve();
-              });
+                  process.send({ data: newFile });
+
+                  return resolve();
+                },
+              );
             },
           ),
         ).catch((error) => ({ error })),

@@ -21,11 +21,14 @@
 const fs = require('fs');
 const util = require('util');
 
+const { argv } = require('yargs');
 const ora = require('ora');
 const sass = require('node-sass');
 const chokidar = require('chokidar');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions.js');
+
+const { license } = require('./license-header');
 
 const getCssFileName = (name) => name.replace(/\.scss/, '.css');
 
@@ -43,7 +46,11 @@ const compileSass = async (file, spinner) => {
       functions,
       outputStyle: 'compressed',
     });
-    await writeFile(cssFileName, result.css);
+    const fileContents = [license, result.css].join('\n');
+    await writeFile(
+      cssFileName,
+      argv.licenseHeader ? fileContents : result.css,
+    );
     spinner.succeed(`Compiled: ${cssFileName}`);
   } catch (e) {
     spinner.fail(`Failed: ${cssFileName}`);

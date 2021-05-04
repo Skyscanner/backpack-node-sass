@@ -24,3 +24,8 @@ node ../../index.js
 test -e test.css
 test ! -e _test.css
 test ! -e node_modules/test.css
+
+node ../../index.js --licenseHeader
+
+test -e licenseTest.css
+test -e test.css
