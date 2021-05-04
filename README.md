@@ -21,10 +21,10 @@ npm install --save-dev backpack-node-sass
 ✔ 159/159 compiled
 ```
 
-Add Skyscanner license header to output files - mainly for open source projects:
+Add a comment to output files - e.g. a license header or file comment:
 
 ```
-> backpack-node-sass --licenseHeader
+> backpack-node-sass --prefixComment="$(<./license.txt)"
 ✔ 159 files found
 ✔ 8 workers spawned
 ✔ 159/159 compiled

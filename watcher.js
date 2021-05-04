@@ -28,8 +28,6 @@ const chokidar = require('chokidar');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions.js');
 
-const { license } = require('./license-header');
-
 const getCssFileName = (name) => name.replace(/\.scss/, '.css');
 
 const renderSass = util.promisify(sass.render);
@@ -46,11 +44,20 @@ const compileSass = async (file, spinner) => {
       functions,
       outputStyle: 'compressed',
     });
-    const fileContents = [license, result.css].join('\n');
-    await writeFile(
-      cssFileName,
-      argv.licenseHeader ? fileContents : result.css,
-    );
+
+    let prefixedContents;
+
+    if (argv.prefixComment) {
+      try {
+        const comment = argv.prefixComment;
+        prefixedContents = [comment, result.css].join('\n');
+      } catch (err) {
+        console.error('There was an error processing the argument.');
+        console.error(err);
+      }
+    }
+
+    await writeFile(cssFileName, prefixedContents || result.css);
     spinner.succeed(`Compiled: ${cssFileName}`);
   } catch (e) {
     spinner.fail(`Failed: ${cssFileName}`);

@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New option `--licenseHeader` to allow the ability to add the Skyscanner license header to outputted CSS files.
+- New option `--prefixComment` to allow the ability to add comments at the top of outputted CSS files.
 
 ### Patched
 

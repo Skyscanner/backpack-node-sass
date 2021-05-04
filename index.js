@@ -30,8 +30,6 @@ const fastGlob = require('fast-glob');
 const importer = require('node-sass-tilde-importer');
 const functions = require('bpk-mixins/sass-functions');
 
-const { license } = require('./license-header');
-
 const getSassFiles = () =>
   fastGlob.sync(
     [
@@ -133,11 +131,21 @@ const worker = () =>
 
               const newFile = file.replace('.scss', '.css');
 
-              const fileContents = [license, result.css].join('\n');
+              let prefixedContents;
+
+              if (argv.prefixComment) {
+                try {
+                  const comment = argv.prefixComment;
+                  prefixedContents = [comment, result.css].join('\n');
+                } catch (err) {
+                  console.error('There was an error processing the argument.');
+                  console.error(err);
+                }
+              }
 
               return fs.writeFile(
                 newFile,
-                argv.licenseHeader ? fileContents : result.css,
+                prefixedContents || result.css,
                 (err) => {
                   if (err) {
                     process.send({ error: err });
