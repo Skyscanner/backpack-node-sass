@@ -22,6 +22,7 @@ const os = require('os');
 const fs = require('fs');
 const cluster = require('cluster');
 
+const { argv } = require('yargs');
 const ora = require('ora');
 const sass = require('node-sass');
 const chunk = require('lodash/chunk');
@@ -130,16 +131,34 @@ const worker = () =>
 
               const newFile = file.replace('.scss', '.css');
 
-              return fs.writeFile(newFile, result.css, (err) => {
-                if (err) {
-                  process.send({ error: err });
-                  return reject(err);
+              let prefixedContents;
+
+              if (argv.prefixComment) {
+                try {
+                  const comment = `/* 
+${argv.prefixComment.replace(/^/gm, ' * ')}
+*/`;
+                  prefixedContents = [comment, result.css].join('\n');
+                } catch (err) {
+                  console.error('There was an error processing the argument.');
+                  console.error(err);
                 }
+              }
 
-                process.send({ data: newFile });
+              return fs.writeFile(
+                newFile,
+                prefixedContents || result.css,
+                (err) => {
+                  if (err) {
+                    process.send({ error: err });
+                    return reject(err);
+                  }
 
-                return resolve();
-              });
+                  process.send({ data: newFile });
+
+                  return resolve();
+                },
+              );
             },
           ),
         ).catch((error) => ({ error })),

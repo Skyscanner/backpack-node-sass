@@ -24,3 +24,9 @@ node ../../index.js
 test -e test.css
 test ! -e _test.css
 test ! -e node_modules/test.css
+
+node ../../index.js --prefixComment="$(<./license.txt)"
+
+test -e test.css
+test ! -e _test.css
+test ! -e node_modules/test.css

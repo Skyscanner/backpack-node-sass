@@ -21,6 +21,7 @@
 const fs = require('fs');
 const util = require('util');
 
+const { argv } = require('yargs');
 const ora = require('ora');
 const sass = require('node-sass');
 const chokidar = require('chokidar');
@@ -43,7 +44,22 @@ const compileSass = async (file, spinner) => {
       functions,
       outputStyle: 'compressed',
     });
-    await writeFile(cssFileName, result.css);
+
+    let prefixedContents;
+
+    if (argv.prefixComment) {
+      try {
+        const comment = `/* 
+${argv.prefixComment.replace(/^/gm, ' * ')}
+*/`;
+        prefixedContents = [comment, result.css].join('\n');
+      } catch (err) {
+        console.error('There was an error processing the argument.');
+        console.error(err);
+      }
+    }
+
+    await writeFile(cssFileName, prefixedContents || result.css);
     spinner.succeed(`Compiled: ${cssFileName}`);
   } catch (e) {
     spinner.fail(`Failed: ${cssFileName}`);
