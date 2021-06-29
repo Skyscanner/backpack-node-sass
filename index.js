@@ -36,6 +36,7 @@ const getSassFiles = () =>
       '**/*.scss',
       '!**/_*.scss',
       '!**/node_modules',
+      '!**/bpk-foundations-web/tokens/**',
       '!**/bpk-tokens/tokens/**',
     ],
     {
