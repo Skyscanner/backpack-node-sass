@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Patched
+
+- Added support for the Backpack Foundations packages for using node-sass.
+
+## 0.5.0
 ### Added
 
 - New option `--prefixComment` to allow the ability to add comments at the top of outputted CSS files.
