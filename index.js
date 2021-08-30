@@ -66,7 +66,7 @@ const createWorkers = () => {
   spinner.succeed(`${files.length} files found`);
   spinner.start(`Spawning workers...`);
 
-  const cpuCount = os.cpus().length;
+  const cpuCount = process.env.CPU_NUMBER || os.cpus().length;
   const workers = getWorkers(files, cpuCount);
 
   spinner.succeed(`${workers.length} workers spawned`);
@@ -136,7 +136,7 @@ const worker = () =>
 
               if (argv.prefixComment) {
                 try {
-                  const comment = `/* 
+                  const comment = `/*
 ${argv.prefixComment.replace(/^/gm, ' * ')}
 */`;
                   prefixedContents = [comment, result.css].join('\n');
