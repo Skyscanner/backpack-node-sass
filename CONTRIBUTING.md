@@ -32,3 +32,20 @@ If you are adding a new file it should have a header like this:
  */
 ```
 
+## Testing
+
+To test, run `npm test`.
+
+## Publishing
+
+This package can be published by members of the Koala team.
+To do this:
+
+ - Add a title with the new version for changes in the `UNRELEASED` section of `CHANGELOG.md`.
+ - Change the version in `package.json` to reflect the new version.
+ - Commit the changes to `package.json` and `CHANGELOG.md`.
+ - Run `npm publish`.
+ - Run `git tag v<NEW_VERSION>`. For example, `git tag v0.1.0`.
+ - Run `git push`.
+ - Run `git push --tags`.
+
