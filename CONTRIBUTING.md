@@ -41,11 +41,8 @@ To test, run `npm test`.
 This package can be published by members of the Koala team.
 To do this:
 
- - Add a title with the new version for changes in the `UNRELEASED` section of `CHANGELOG.md`.
- - Change the version in `package.json` to reflect the new version.
- - Commit the changes to `package.json` and `CHANGELOG.md`.
- - Run `npm publish`.
- - Run `git tag v<NEW_VERSION>`. For example, `git tag v0.1.0`.
- - Run `git push`.
- - Run `git push --tags`.
-
+- Add a title with the new version for changes in the `UNRELEASED` section of `CHANGELOG.md`.
+- Stage those changes (`git add CHANGELOG.md`).
+- Run `npm version -f major|minor|patch`. This will create a tagged commit changing the version in `package.json`, and the changes in `CHANGELOG.md`.
+- Run `npm publish`.
+- Run `git push && git push --tags`.
