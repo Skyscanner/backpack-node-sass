@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/backpack-node-sass.svg)](https://www.npmjs.com/package/backpack-node-sass)
 
 
-Parallelised `node-sass` with Backpack support.
+`backpack-node-sass` runs several `node-sass` processes in parallel - allowing Sass files to be transpiled faster than using `node-sass` directly.
 
 ## Install
 
