@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Added support for environment variable `CPU_NUMBER` which will override the number of workers spawned.
 
+## 0.6.0
 ### Patched
 
 - Added support for the Backpack Foundations packages for using node-sass.
