@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.8.0
+
 - Updated `bpk-mixins` to the latest.
 - Updated `node-sass` from v5 to v7. To add support for Node 16.
 - Patched other dependencies.
