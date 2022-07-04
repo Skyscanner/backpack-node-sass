@@ -24,11 +24,11 @@ const cluster = require('cluster');
 
 const { argv } = require('yargs');
 const ora = require('ora');
-const sass = require('node-sass');
+const sass = require('sass');
 const chunk = require('lodash/chunk');
 const fastGlob = require('fast-glob');
 const importer = require('node-sass-tilde-importer');
-const functions = require('bpk-mixins/sass-functions');
+// const functions = require('bpk-mixins/sass-functions');
 
 const getSassFiles = () =>
   fastGlob.sync(
@@ -121,7 +121,13 @@ const worker = () =>
             {
               file,
               importer,
-              functions,
+              functions: {
+                'encodebase64($string)': (str) => {
+                  const buffer = Buffer.from(str.getValue());
+
+                  return sass.types.String(buffer.toString('base64'));
+                },
+              },
               outputStyle: 'compressed',
             },
             (error, result) => {
