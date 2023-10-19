@@ -1,7 +1,7 @@
 /*
  * backpack-node-sass
  *
- * Copyright 2018-2021 Skyscanner Ltd
+ * Copyright 2018 Skyscanner Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,19 @@
 
 /* eslint-disable no-console */
 
-const os = require('os');
-const fs = require('fs');
 const cluster = require('cluster');
+const fs = require('fs');
+const os = require('os');
 
-const { argv } = require('yargs');
-const ora = require('ora');
-const sass = require('node-sass');
-const chunk = require('lodash/chunk');
 const fastGlob = require('fast-glob');
-const importer = require('node-sass-tilde-importer');
-const functions = require('bpk-mixins/sass-functions');
+const chunk = require('lodash/chunk');
+const sass = require('node-sass');
+const ora = require('ora');
+const { argv } = require('yargs');
+
+const functions = require('@skyscanner/backpack-web/bpk-mixins/sass-functions');
+
+const importer = require('./importer');
 
 const getSassFiles = () =>
   fastGlob.sync(
@@ -77,7 +79,7 @@ const createWorkers = () => {
   spinner.start(getStatusMessage(files, successes));
 
   workers.forEach((worker) => {
-    worker.on('message', ({ error, data }) => {
+    worker.on('message', ({ data, error }) => {
       if (error) {
         failures.push(error);
       } else {
@@ -117,6 +119,7 @@ const worker = () =>
     const promises = files.map(
       (file) =>
         new Promise((resolve, reject) =>
+          // eslint-disable-next-line no-promise-executor-return
           sass.render(
             {
               file,
