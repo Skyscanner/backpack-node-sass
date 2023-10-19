@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+**Breaking:**
+- Support Node 18, drop support for older versions.
+- Upgrade dependencies
+  - `bpk-mixins` to the latest
+  - `node-sass` to the latest
+- Migrate away from old `node-sass-tilde-importer` as its outdated to a local version.
+
 ## 0.9.0
 
 - Updated `bpk-mixins` to latest.

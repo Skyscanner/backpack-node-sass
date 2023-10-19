@@ -1,6 +1,6 @@
 {
   "extends": [
-    "skyscanner"
+    "@skyscanner/eslint-config-skyscanner"
   ],
   "settings": {
     "jest": {

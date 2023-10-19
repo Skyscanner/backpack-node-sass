@@ -1,7 +1,7 @@
 /*
  * backpack-node-sass
  *
- * Copyright 2018-2021 Skyscanner Ltd
+ * Copyright 2018 Skyscanner Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,14 @@
 const fs = require('fs');
 const util = require('util');
 
-const { argv } = require('yargs');
-const ora = require('ora');
-const sass = require('node-sass');
 const chokidar = require('chokidar');
-const importer = require('node-sass-tilde-importer');
-const functions = require('bpk-mixins/sass-functions.js');
+const sass = require('node-sass');
+const ora = require('ora');
+const { argv } = require('yargs');
+
+const functions = require('@skyscanner/backpack-web/bpk-mixins/sass-functions');
+
+const importer = require('./importer');
 
 const getCssFileName = (name) => name.replace(/\.scss/, '.css');
 
