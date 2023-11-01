@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.0
+
 **Breaking:**
 - Support Node 18, drop support for older versions.
 - Upgrade dependencies
