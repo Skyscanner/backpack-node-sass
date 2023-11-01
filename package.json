@@ -28,7 +28,8 @@
   "files": [
     "index.js",
     "cli.js",
-    "watcher.js"
+    "watcher.js",
+    "importer.js"
   ],
   "engines": {
     "node": "^18.0.0",
