@@ -28,8 +28,6 @@ const sass = require('node-sass');
 const ora = require('ora');
 const { argv } = require('yargs');
 
-const functions = require('@skyscanner/backpack-web/bpk-mixins/sass-functions');
-
 const importer = require('./importer');
 
 const getSassFiles = () =>
@@ -124,7 +122,6 @@ const worker = () =>
             {
               file,
               importer,
-              functions,
               outputStyle: 'compressed',
             },
             (error, result) => {

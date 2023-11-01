@@ -45,7 +45,6 @@
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx}\""
   },
   "dependencies": {
-    "@skyscanner/backpack-web": "^29.6.0",
     "chokidar": "^3.5.3",
     "fast-glob": "^3.3.1",
     "find-parent-dir": "^0.3.1",

@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-@import '~@skyscanner/backpack-web/bpk-mixins/index';
-
 .button {
   @include bpk-unknown;
 }
