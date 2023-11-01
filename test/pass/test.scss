@@ -16,12 +16,8 @@
  * limitations under the License.
  */
 
-@import '~@skyscanner/backpack-web/bpk-mixins/index';
+@import '~test';
 
 .button {
   @include bpk-button;
-}
-
-.icon {
-  @include bpk-icon(flight, $bpk-color-sky-blue);
 }

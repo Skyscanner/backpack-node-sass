@@ -26,8 +26,6 @@ const sass = require('node-sass');
 const ora = require('ora');
 const { argv } = require('yargs');
 
-const functions = require('@skyscanner/backpack-web/bpk-mixins/sass-functions');
-
 const importer = require('./importer');
 
 const getCssFileName = (name) => name.replace(/\.scss/, '.css');
@@ -43,7 +41,6 @@ const compileSass = async (file, spinner) => {
     const result = await renderSass({
       file,
       importer,
-      functions,
       outputStyle: 'compressed',
     });
 
@@ -51,7 +48,7 @@ const compileSass = async (file, spinner) => {
 
     if (argv.prefixComment) {
       try {
-        const comment = `/* 
+        const comment = `/*
 ${argv.prefixComment.replace(/^/gm, ' * ')}
 */`;
         prefixedContents = [comment, result.css].join('\n');
