@@ -33,7 +33,7 @@
   ],
   "engines": {
     "node": "^18.0.0",
-    "npm": "^9.0.0"
+    "npm": "^9.0.0 || ^10.2.5"
   },
   "scripts": {
     "test:lint": "npm run lint",
